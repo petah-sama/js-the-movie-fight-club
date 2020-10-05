@@ -4,8 +4,6 @@ const fetchData = async (searchTerm) => {
             apikey: 'a6e9cace',
             s: searchTerm
         }
-
-        
     });
     
     if(response.data.Error) {
@@ -52,6 +50,8 @@ const onInput = async event => {
         item.addEventListener('click', () => {
             dropdown.classList.remove('is-active');
             input.value = movie.Title;
+
+            onMovieSelect(movie);
         });
 
         resultsWrapper.appendChild(item);
@@ -65,3 +65,13 @@ document.addEventListener('click', (event) => {
         dropdown.classList.remove('is-active');
     }
 });
+
+const onMovieSelect = async movie => {
+    const response = await axios.get('http://www.omdbapi.com/', {
+        params: {
+            apikey: 'a6e9cace',
+            i: movie.imdbID
+        }
+    });
+    console.log(response.data);
+}
